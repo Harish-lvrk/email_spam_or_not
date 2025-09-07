@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Spam Detector</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            text-align: center;
+            padding: 40px;
+        }
+        h1 {
+            color: #333;
+        }
+        form {
+            margin-top: 20px;
+        }
+        textarea {
+            width: 60%;
+            height: 120px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        .btn {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 6px;
+        }
+        .submit-btn {
+            background-color: #007bff;
+            color: white;
+        }
+        .reset-btn {
+            background-color: #dc3545;
+            color: white;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .spam {
+            color: red;
+        }
+        .not-spam {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <h1>Email Spam Detector</h1>
+
+    <form method="POST" action="/predict">
+        <textarea name="email" placeholder="Enter email content here...">{{ email if email else '' }}</textarea><br>
+        <button type="submit" class="btn submit-btn">Check</button>
+        <button type="button" class="btn reset-btn" onclick="window.location.href='/'">Reset</button>
+    </form>
+
+
+    {% if prediction %}
+        <div class="result">
+            {% if prediction == 1 %}
+                🚨 <span class="spam">Spam Email</span>
+            {% elif prediction == -1 %}
+                ✅ <span class="not-spam">Not Spam</span>
+            {% endif %}
+        </div>
+    {% endif %}
+</body>
+</html>
